@@ -48,4 +48,16 @@ class CustomerRepository
     return @all.last
   end
 
+	def update(id, attributes)
+    updated_item = find_by_id(id)
+    updated_item.first_name = attributes[:first_name]
+		updated_item.last_name = attributes[:last_name]
+    updated_item.updated_at = Time.now
+		return updated_item
+  end
+
+	def delete(id)
+		removed_item = find_by_id(id)
+		@all.delete(removed_item)
+	end
 end

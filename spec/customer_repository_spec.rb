@@ -49,4 +49,21 @@ RSpec.describe CustomerRepository do
 		expect(customers_repo.create({:first_name => "Larry", :last_name => "Larrington"})).to be_a(Customer)
 		expect(customers_repo.all.last.first_name).to eq("Larry")
 	end
+
+	it 'can update an existing customer' do
+		customers = "./data/customers.csv"
+		customers_repo = CustomerRepository.new(customers)
+
+		expect(customers_repo.update(960, {:first_name => "Dirk", :last_name => "Nowitzki"})).to be_a(Customer)
+		expect(customers_repo.find_by_id(960).first_name).to eq("Dirk")
+	end
+
+	it 'can delete a customer' do
+		customers = "./data/customers.csv"
+		customers_repo = CustomerRepository.new(customers)
+
+		expect(customers_repo.find_by_id(960)).to be_a(Customer)
+		customers_repo.delete(960)
+		expect(customers_repo.find_by_id(960)).to eq(nil)
+	end
 end
