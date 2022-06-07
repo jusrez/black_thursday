@@ -16,5 +16,17 @@ class CustomerRepository
 			})
 		end
 	end
-	
+
+	def find_by_id(id)
+		@all.find do |customer|
+      customer.id.to_i == id
+    end
+	end
+
+	def find_all_by_first_name(name_fragment)
+    @all.find_all do |customer|
+      customer.first_name.downcase.include?(name_fragment.downcase)
+    end
+  end
+
 end

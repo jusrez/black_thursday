@@ -11,4 +11,26 @@ RSpec.describe CustomerRepository do
 		expect(customers_repo).to be_an_instance_of CustomerRepository
 	end
 
+	it 'returns an array of all customers' do
+		customers = "./data/customers.csv"
+		customers_repo = CustomerRepository.new(customers)
+
+		expect(customers_repo.all).to be_a(Array)
+	end
+
+	it 'can find a customer by id' do
+		customers = "./data/customers.csv"
+		customers_repo = CustomerRepository.new(customers)
+
+		expect(customers_repo.find_by_id(977)).to be_a(Customer)
+		expect(customers_repo.find_by_id(977).first_name).to eq("Werner")
+	end
+
+	it 'can find all customers with first name' do
+		customers = "./data/customers.csv"
+		customers_repo = CustomerRepository.new(customers)
+
+		expect(customers_repo.find_all_by_first_name("Lord Farquad")).to eq([])
+		expect(customers_repo.find_all_by_first_name("Emerson")[0]).to be_a(Customer)
+	end
 end
