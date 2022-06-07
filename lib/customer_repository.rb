@@ -33,8 +33,19 @@ class CustomerRepository
 		@all.find_all do |customer|
       customer.last_name.downcase.include?(name_fragment.downcase)
     end
-
 	end
 
+	def create(attribute)
+    new_id = @all.last.id.to_i + 1
+    new_attribute = attribute
+    @all << Customer.new({
+			:id => new_id.to_s,
+			:first_name => new_attribute[:first_name],
+			:last_name => new_attribute[:last_name],
+			:created_at => Time.now,
+			:updated_at => Time.now
+			})
+    return @all.last
+  end
 
 end

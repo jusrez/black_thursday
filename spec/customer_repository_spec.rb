@@ -41,4 +41,12 @@ RSpec.describe CustomerRepository do
 		expect(customers_repo.find_all_by_last_name("Blooregard")).to eq([])
 		expect(customers_repo.find_all_by_last_name("Tromp")[0]).to be_a(Customer)
 	end
+
+	it 'can create a new customer' do
+		customers = "./data/customers.csv"
+		customers_repo = CustomerRepository.new(customers)
+
+		expect(customers_repo.create({:first_name => "Larry", :last_name => "Larrington"})).to be_a(Customer)
+		expect(customers_repo.all.last.first_name).to eq("Larry")
+	end
 end
