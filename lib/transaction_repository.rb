@@ -10,6 +10,7 @@ class TransactionRepository
     @all << Transaction.new({:id => row[:id],
       :invoice_id => row[:invoice_id],
       :credit_card_number => row[:credit_card_number],
+			:credit_card_expiration_date => row[:credit_card_expiration_date],
       :result => row[:result],
       :created_at => row[:created_at],
       :updated_at => row[:updated_at]})
@@ -40,4 +41,30 @@ class TransactionRepository
     end
   end
 
+	def create(attributes)
+		new_id = @all.last.id.to_i + 1
+		new_attribute = attributes
+		@all << Transaction.new(
+			:id => new_id.to_s,
+			:invoice_id => new_attribute[:invoice_id],
+			:credit_card_number => new_attribute[:credit_card_number],
+			:credit_card_expiration_date => new_attribute[:credit_card_expiration_date],
+			:result => new_attribute[:result],
+			:created_at => Time.now,
+			:updated_at => Time.now)
+		return @all.last
+	end
+
+	def update(id, attributes)
+		updated_transaction = find_by_id(id)
+		updated_transaction.credit_card_number = attributes[:credit_card_number]
+		updated_transaction.credit_card_expiration_date = attributes[:credit_card_expiration_date]
+		updated_transaction.result = attributes[:result]
+		updated_transaction.updated_at = Time.now
+	end
+
+	def delete(id)
+		removed_transaction = find_by_id(id)
+		@all.delete(removed_transaction)
+	end
 end
