@@ -126,8 +126,9 @@ RSpec.describe SalesAnalyst do
 	end
 
 	it 'can find the top_revenue_earners' do
-		expect(sales_analyst.top_revenue_earners(5).count).to eq(5)
+		expect(sales_analyst.merchant_revenue(12334160)).to be_a(Integer)
 		expect(sales_analyst.top_revenue_earners.count).to eq(20)
+		expect(sales_analyst.top_revenue_earners(5).count).to eq(5)
 	end
 
 end
