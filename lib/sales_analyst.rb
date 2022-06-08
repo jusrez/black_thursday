@@ -223,5 +223,21 @@ class SalesAnalyst
 		return total
 	end
 
+	def total_revenue_by_date(date)
+		total_revenue = 0
+		invoices_of_date = @invoice_items.all.find_all do |invoice|
+			invoice.created_at[0..9] == date
+		end
+		invoices_of_date.each do |invoice|
+			total_revenue += invoice.unit_price_to_dollars
+		end
+		return total_revenue
+	end
+
+	def top_revenue_earners(number_of_earners = 20)
+		top_revenue_earners = []
+
+	end
+
 
 end
