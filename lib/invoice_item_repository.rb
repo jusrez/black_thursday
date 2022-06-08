@@ -1,8 +1,10 @@
+require './deletable'
 require 'CSV'
 require 'BigDecimal'
 require_relative './invoice_item.rb'
 
 class InvoiceItemRepository
+	include Deletable
   attr_reader :all
   def initialize(invoice_item_path)
     @invoice_item_path = invoice_item_path
@@ -57,10 +59,6 @@ class InvoiceItemRepository
 		updated_item.updated_at = Time.now
 	end
 
-  def delete(id)
-		removed_item = find_by_id(id)
-    @all.delete(removed_item)
-	end
 
 
 end
