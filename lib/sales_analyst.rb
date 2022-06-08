@@ -220,6 +220,7 @@ class SalesAnalyst
 		invoices.each do |invoice|
 		total += invoice.unit_price_to_dollars
 		end
+		return total
 	end
 
 
