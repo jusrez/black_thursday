@@ -8,8 +8,8 @@ RSpec.describe Invoice do
    :id              => 6,
    :customer_id     => 7,
    :status => "pending",
-   :created_at  => Time.now,
-   :updated_at  => Time.now,
+   :created_at  => Time.now.round,
+   :updated_at  => Time.now.round,
    :merchant_id => 8})
 
   it "exists" do
