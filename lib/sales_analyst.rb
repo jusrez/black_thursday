@@ -236,21 +236,28 @@ class SalesAnalyst
 
 	def top_revenue_earners(number_of_earners = 20)
 		invoices_by_merchant.each do |merchant, invoices_amount|
-			# require "pry"; binding.pry
 		end
 
 	end
 
 	def merchant_revenue(merchant_id)
-		# require "pry"; binding.pry
+
 		total_revenue = 0
 		invoices.all.each do |invoice|
+<<<<<<< HEAD
+
+=======
 			# require "pry"; binding.pry
+>>>>>>> 33eeac54dbcabafd63f615f4697f7c5665ea635d
 			if merchant_id == invoice.merchant_id #&& invoice_paid_in_full?(invoice)
 				 total_revenue += ((invoice.unit_price.to_f) * invoice.quantity.to_f)
 			end
 		end
+<<<<<<< HEAD
+
+=======
 		# require "pry"; binding.pry
+>>>>>>> 33eeac54dbcabafd63f615f4697f7c5665ea635d
 		return total_revenue
 	end
 
