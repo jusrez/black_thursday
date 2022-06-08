@@ -271,5 +271,20 @@ class SalesAnalyst
 		return merchants_with_only_one_item
 	end
 
+	def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_created_in_month = merchants.all.find_all{|merchant| (Date.parse(merchant.created_at)).strftime("%B") == month_name}
+    merchants_created_in_month.find_all{|merchant| @items.find_all_by_merchant_id(merchant.id).count == 1}
+  end
+
+	def most_sold_item_for_merchant(merch_id)
+    most_sold_items = []
+    merchant_items = @items.find_all_by_merchant_id(merch_id)
+    items_invoice = merchant_items.flat_map do |item|
+      @invoice_items.find_all_by_item_id(item.id)
+    end
+    most_sold_items << items_invoice.max {|item| item.quantity.to_i}
+  end
+
+
 
 end
