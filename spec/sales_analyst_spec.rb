@@ -125,7 +125,7 @@ RSpec.describe SalesAnalyst do
 		expect(sales_analyst.total_revenue_by_date("2009-12-09")).to eq(13635)
 	end
 
-	xit 'can find the top_revenue_earners' do
+	it 'can find the top_revenue_earners' do
 
 		expect(sales_analyst.revenue_by_merchant(12334160)).to be_a(Float)
 		expect(sales_analyst.top_revenue_earners.count).to eq(20)
