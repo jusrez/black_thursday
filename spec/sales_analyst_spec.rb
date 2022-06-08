@@ -2,6 +2,9 @@ require "./lib/sales_engine"
 require "./lib/item_repository"
 require "./lib/merchant_repository"
 require "./lib/invoice_repository"
+require "./lib/transaction_repository"
+require "./lib/customer_repository"
+require "./lib/invoice_item_repository"
 require "./lib/sales_analyst"
 
 RSpec.describe SalesAnalyst do
@@ -9,7 +12,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv",
+			:invoice_items => "./data/invoice_items.csv"
     })
 		sales_analyst = sales_engine.analyst
 
@@ -21,7 +27,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
       :items => "./data/items.csv",
       :merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
     })
 		sales_analyst = sales_engine.analyst
 
@@ -30,10 +39,13 @@ RSpec.describe SalesAnalyst do
 
 	it 'can return the standard deviation of average items per merchant' do
 		sales_engine = SalesEngine.from_csv({
-      :items => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
-    })
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
+		})
 		sales_analyst = sales_engine.analyst
 
 		expect(sales_analyst.average_items_per_merchant_standard_deviation).to eq(3.26)
@@ -43,7 +55,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -56,7 +71,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -68,7 +86,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -80,7 +101,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 		expect(sales_analyst.standard_deviation([1, 2 ,3], 2)).to eq(1)
@@ -90,7 +114,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -101,7 +128,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -112,7 +142,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -123,7 +156,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -134,7 +170,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -147,7 +186,10 @@ RSpec.describe SalesAnalyst do
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -155,11 +197,14 @@ RSpec.describe SalesAnalyst do
 	end
 
 	it 'can return the bottom performing merchants by invoice count' do
-	sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv"
-	})
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
+		})
 	sales_analyst = sales_engine.analyst
 
 	expect(sales_analyst.bottom_merchants_by_invoice_count.length).to eq(463)
@@ -169,7 +214,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -180,7 +228,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 		expect(sales_analyst.date_to_day("2009-02-07")).to eq("Saturday")
@@ -190,7 +241,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -201,7 +255,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -212,7 +269,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -223,7 +283,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -236,7 +299,10 @@ end
 		sales_engine = SalesEngine.from_csv({
 			:items => "./data/items.csv",
 			:merchants => "./data/merchants.csv",
-			:invoices => "./data/invoices.csv"
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
 		})
 		sales_analyst = sales_engine.analyst
 
@@ -245,5 +311,33 @@ end
 		expect(sales_analyst.invoice_status(:returned)).to eq(13.5)
 	end
 
+	it 'will return true or false if an invoice is paid in full' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.invoice_paid_in_full?(2179)).to eq(true)
+
+	end
+
+	it 'will return the total dollar amount of an invoice' do
+		sales_engine = SalesEngine.from_csv({
+			:items => "./data/items.csv",
+			:merchants => "./data/merchants.csv",
+			:invoices => "./data/invoices.csv",
+			:invoice_items => "./data/invoice_items.csv",
+			:customers => "./data/customers.csv",
+			:transactions => "./data/transactions.csv"
+		})
+		sales_analyst = sales_engine.analyst
+
+		expect(sales_analyst.invoice_total(2179)).to eq(518497.0)
+	end
 
 end
