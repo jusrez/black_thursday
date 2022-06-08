@@ -10,7 +10,6 @@ attr_accessor :quantity,
               :updated_at
 
   def initialize(data)
-		# require "pry"; binding.pry
     @id = data[:id]
     @item_id = data[:item_id]
     @invoice_id = data[:invoice_id]
@@ -23,6 +22,4 @@ attr_accessor :quantity,
 	def unit_price_to_dollars
 		@unit_price.to_f
 	end
-
-
 end
