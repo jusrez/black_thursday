@@ -1,16 +1,24 @@
 require_relative "./sales_engine"
 require_relative "./item_repository"
 require_relative "./merchant_repository"
+require_relative "./invoice_repository"
+require_relative "./invoice_item_repository"
+require_relative "./customer_repository"
+require_relative "./transaction_repository"
+
 require "bigdecimal"
 require "bigdecimal/util"
 require "date"
 
 class SalesAnalyst
-	attr_reader :items, :merchants, :invoices
-	def initialize(items, merchants, invoices)
+	attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
+	def initialize(items, merchants, invoices, customers, transactions, invoice_items)
 		@items = items
 		@merchants = merchants
 		@invoices = invoices
+		@customers = customers
+		@transactions = transactions
+		@invoice_items = invoice_items
 	end
 
 	def average_items_per_merchant
@@ -195,6 +203,40 @@ class SalesAnalyst
 			status_count[status.to_sym] += 1
 		end
 		return status_count
+	end
+
+	def invoice_paid_in_full?(invoice_id)
+		transaction = @transactions.find_by_id(invoice_id)
+		if transaction.result == "success"
+			return true
+		else
+			return false
+		end
+	end
+
+	def invoice_total(invoice_id)
+		total = 0
+		invoices = @invoice_items.find_all_by_invoice_id(invoice_id)
+		invoices.each do |invoice|
+		total += invoice.unit_price_to_dollars
+		end
+		return total
+	end
+
+	def total_revenue_by_date(date)
+		total_revenue = 0
+		invoices_of_date = @invoice_items.all.find_all do |invoice|
+			invoice.created_at[0..9] == date
+		end
+		invoices_of_date.each do |invoice|
+			total_revenue += invoice.unit_price_to_dollars
+		end
+		return total_revenue
+	end
+
+	def top_revenue_earners(number_of_earners = 20)
+		top_revenue_earners = []
+
 	end
 
 
