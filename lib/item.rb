@@ -1,4 +1,3 @@
-
 require 'CSV'
 class Item
 	attr_reader :id,
