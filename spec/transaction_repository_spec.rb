@@ -79,7 +79,7 @@ RSpec.describe TransactionRepository do
 		transaction_repository.update(1, {:credit_card_number => "9393939393939393",
 			:credit_card_expiration_date => "0822",
 			:result => "success",
-			:updated_at => Time.now
+			:updated_at => Time.now.round
 			})
 
 		expect(transaction_repository.find_by_id(1).credit_card_number).to eq("9393939393939393")
@@ -97,6 +97,6 @@ RSpec.describe TransactionRepository do
 
 		transaction_repository.delete(1)
 
-		expect(transaction_repository.find_by_id(1).credit_card_number).to eq(nil)
+		expect(transaction_repository.find_by_id(1)).to eq(nil)
 	end
 end
