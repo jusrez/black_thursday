@@ -28,15 +28,12 @@ RSpec.describe MerchantRepository do
   it 'can find all merchants by name fragment' do
     merchant_repo = MerchantRepository.new('./data/merchants.csv')
     merchant_repo.find_all_by_name("mini").each do |merchant|
-      expect merchant.name.include?("mini"). to eq("mini")
-    end
-
         expect(merchant.name.downcase.include?("mini")).to eq(true)
         expect(merchant).to be_instance_of(Merchant)
       end
     expect(merchant_repo.find_all_by_name('mini')).to be_instance_of(Array)
 
-    merchant_repo.find_all_by_name("MiNi").each   do |merchant|
+    merchant_repo.find_all_by_name("MiNi").each do |merchant|
         expect(merchant.name.downcase.include?("mini")).to eq(true)
         expect(merchant).to be_instance_of(Merchant)
       end
