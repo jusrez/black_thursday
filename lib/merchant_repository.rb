@@ -1,5 +1,5 @@
 require 'CSV'
-require_relative './merchant.rb'
+require './lib/merchant.rb'
 class MerchantRepository
   attr_reader :all
   def initialize(file_path)
@@ -10,7 +10,7 @@ class MerchantRepository
     @all << Merchant.new({:id => row[:id], :name => row[:name]})
 
     end
-    
+
   end
 
   def find_by_id(id)
