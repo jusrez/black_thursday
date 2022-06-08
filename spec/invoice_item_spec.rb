@@ -8,8 +8,8 @@ RSpec.describe InvoiceItem do
   :invoice_id => 1,
   :quantity => 5,
   :unit_price  => 13635,
-  :created_at  => Time.now,
-  :updated_at  => Time.now})
+  :created_at  => Time.now.round,
+  :updated_at  => Time.now.round})
 
   invoiceitem = InvoiceItem.new(data)
   it 'exists' do
