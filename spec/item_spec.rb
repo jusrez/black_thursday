@@ -8,8 +8,8 @@ RSpec.describe Item do
 		:name        => "Pencil",
 		:description => "You can use it to write things",
 		:unit_price  => BigDecimal(10.99,4),
-		:created_at  => Time.now.round,
-		:updated_at  => Time.now.round,
+		:created_at  => Time.now,
+		:updated_at  => Time.now,
 		:merchant_id => 2
 		})
 
@@ -34,11 +34,11 @@ RSpec.describe Item do
 	end
 
 	it 'returns the time the item was created' do
-		expect(i.created_at).to eq(Time.now.round)
+		expect(i.created_at).to be_a(Time)
 	end
 
 	it 'returns the time the item was updated' do
-		expect(i.updated_at).to eq(Time.now.round)
+		expect(i.updated_at).to be_a(Time)
 	end
 
 	it 'returns the merchant id' do

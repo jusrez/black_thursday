@@ -5,6 +5,7 @@ require './lib/merchant'
 
 RSpec.describe ItemRepository do
   item_repo = ItemRepository.new('./data/items.csv')
+  
   it "exists" do
     expect(item_repo).to be_a(ItemRepository)
   end

@@ -36,10 +36,11 @@ RSpec.describe InvoiceItemRepository do
   end
 
   it 'can create attributes' do
-    new_item_attributes = {:item_id => "2635999123",
-                          :invoice_id => "4986",
-                          :unit_price => "99999",
-                          :quantity => "9"
+    new_item_attributes = {
+                            :item_id    => "2635999123",
+                            :invoice_id => "4986",
+                            :unit_price => "99999",
+                            :quantity   => "9"
                           }
 
     new_item = (ii_repo.create(new_item_attributes))
@@ -57,9 +58,11 @@ RSpec.describe InvoiceItemRepository do
     expect(ii_repo.find_by_id(10).quantity).to eq("4")
     expect(ii_repo.find_by_id(10).unit_price).to eq("1859")
 
-    new_test_attributes = {:quantity => "99",
-                          :unit_price => "2000",
-                          :updated_at => "1"}
+    new_test_attributes = {
+                            :quantity   => "99",
+                            :unit_price => "2000",
+                            :updated_at => "1"
+                          }
 
     ii_repo.update(10, new_test_attributes)
 

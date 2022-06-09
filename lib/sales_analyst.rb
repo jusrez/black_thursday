@@ -12,12 +12,13 @@ require "date"
 
 class SalesAnalyst
 	attr_reader :items, :merchants, :invoices, :invoice_items, :customers, :transactions
+
 	def initialize(items, merchants, invoices, customers, transactions, invoice_items)
-		@items = items
-		@merchants = merchants
-		@invoices = invoices
-		@customers = customers
-		@transactions = transactions
+		@items         = items
+		@merchants     = merchants
+		@invoices      = invoices
+		@customers     = customers
+		@transactions  = transactions
 		@invoice_items = invoice_items
 	end
 
@@ -235,18 +236,15 @@ class SalesAnalyst
 	end
 
 	def top_revenue_earners(number_of_earners = 20)
- feat/iteration4
 		top_to_bottom_merchants = merchant_revenues.sort_by{|merchant, revenue| revenue}.reverse
 		top_to_bottom_merchants.first(number_of_earners)
 	end
-
 
 	def revenue_by_merchant(merchant_id)
 		merchant_invoice_ids = @invoices.find_all_by_merchant_id(merchant_id.to_i).map{|invoice| invoice.id.to_i}
     invoice_items_by_merchant = merchant_invoice_ids.map {|invoice_id| @invoice_items.find_all_by_invoice_id(invoice_id)}.flatten!
     invoice_items_by_merchant.sum {|item| item.unit_price_to_dollars * item.quantity.to_f}
 	end
-
 
 	def merchant_revenues
 		all_revenues = Hash.new
@@ -272,6 +270,7 @@ class SalesAnalyst
 			merchants_with_only_one_item << merchant if items == 1
 		end
 		return merchants_with_only_one_item
+	end
 
 	def merchant_revenue(merchant_id)
 		total_revenue = 0
@@ -296,7 +295,5 @@ class SalesAnalyst
     end
     most_sold_items << items_invoice.max {|item| item.quantity.to_i}
   end
-
-
 
 end

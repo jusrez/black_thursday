@@ -5,11 +5,11 @@ require './lib/invoice.rb'
 
 RSpec.describe Invoice do
   inv = Invoice.new({
-   :id              => 6,
-   :customer_id     => 7,
-   :status => "pending",
-   :created_at  => Time.now.round,
-   :updated_at  => Time.now.round,
+   :id          => 6,
+   :customer_id => 7,
+   :status      => "pending",
+   :created_at  => Time.now,
+   :updated_at  => Time.now,
    :merchant_id => 8})
 
   it "exists" do
@@ -33,7 +33,7 @@ RSpec.describe Invoice do
   end
 
   it "returns the time updated at and created at" do
-   expect(inv.created_at).to eq(Time.now.round)
-   expect(inv.updated_at).to eq(Time.now.round)
+   expect(inv.created_at).to be_a(Time)
+   expect(inv.updated_at).to be_a(Time)
   end
 end

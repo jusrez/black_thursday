@@ -2,9 +2,11 @@ require './deletable'
 require 'CSV'
 require "BigDecimal"
 require_relative'./invoice.rb'
+
 class InvoiceRepository
 	include Deletable
-  attr_reader :all
+
+	attr_reader :all
 
   def initialize(invoice_path)
     @invoice_path = invoice_path
@@ -50,9 +52,6 @@ class InvoiceRepository
     updated_item.updated_at = Time.now
   end
 
-
-
-
   def delete(id)
     removed_item = find_by_id(id)
     @all.delete(removed_item)
@@ -63,11 +62,11 @@ class InvoiceRepository
   def parse_csv
     CSV.foreach(@invoice_path, headers: true, header_converters: :symbol) do |row|
     @all << Invoice.new({
-      :id => row[:id],
+      :id          => row[:id],
       :customer_id => row[:customer_id],
-      :status => row[:status],
-      :created_at => row[:created_at],
-      :updated_at => row[:updated_at],
+      :status      => row[:status],
+      :created_at  => row[:created_at],
+      :updated_at  => row[:updated_at],
       :merchant_id => row[:merchant_id]})
     end
   end

@@ -10,13 +10,12 @@ require "./lib/sales_analyst"
 RSpec.describe SalesEngine do
 
   sales_engine = SalesEngine.from_csv({
-		:items => "./data/items.csv",
-		:merchants => "./data/merchants.csv",
-		:invoices => "./data/invoices.csv",
-		:customers => "./data/customers.csv",
-		:transactions => "./data/transactions.csv",
-		:invoice_items => "./data/invoice_items.csv"
-	})
+		:items         => "./data/items.csv",
+		:merchants     => "./data/merchants.csv",
+		:invoices      => "./data/invoices.csv",
+		:customers     => "./data/customers.csv",
+		:transactions  => "./data/transactions.csv",
+		:invoice_items => "./data/invoice_items.csv"})
 
   it "exists" do
     expect(sales_engine).to be_instance_of SalesEngine

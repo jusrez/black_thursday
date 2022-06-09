@@ -3,11 +3,11 @@ require 'time'
 
 RSpec.describe Customer do
 	c = Customer.new({
-	:id => 6,
-	:first_name => "Joan",
-	:last_name => "Clarke",
-	:created_at => Time.now.round,
-	:updated_at => Time.now.round
+		:id         => 6,
+		:first_name => "Joan",
+		:last_name  => "Clarke",
+		:created_at => Time.now,
+		:updated_at => Time.now
 	})
 
 	it 'exists' do
@@ -27,10 +27,10 @@ RSpec.describe Customer do
 	end
 
 	it 'can return the time a customers profile was created' do
-		expect(c.created_at).to eq(Time.now.round)
+		expect(c.created_at).to be_a(Time)
 	end
 
 	it 'can return the time the customers profile was updated' do
-		expect(c.updated_at).to eq(Time.now.round)
+		expect(c.updated_at).to be_a(Time)
 	end
 end
