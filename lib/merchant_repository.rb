@@ -1,14 +1,15 @@
 require './deletable'
 require 'CSV'
 require './lib/merchant.rb'
+
 class MerchantRepository
 	include Deletable
+
   attr_reader :all
 
   def initialize(file_path)
     @file_path = file_path
     @all = []
-
     parse_csv
   end
 
@@ -42,12 +43,11 @@ class MerchantRepository
     renamed_merchant.name = attributes
   end
 
-
   private
 
   def parse_csv
     CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
-    @all << Merchant.new({:id => row[:id], :name => row[:name]})
+    	@all << Merchant.new({:id => row[:id], :name => row[:name]})
     end
   end
 end

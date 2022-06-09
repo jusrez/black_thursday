@@ -7,6 +7,7 @@ require './lib/invoice_repository'
 
 RSpec.describe InvoiceRepository do
   invoice_repo = InvoiceRepository.new('./data/invoices.csv')
+  
   it "exists" do
     expect(invoice_repo).to be_a(InvoiceRepository)
   end

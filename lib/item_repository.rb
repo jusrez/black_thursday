@@ -5,7 +5,9 @@ require_relative'./item.rb'
 
 class ItemRepository
 	include Deletable
+
 	attr_reader :all
+
 	def initialize(items_path)
 		@items_path = items_path
 		@all = []
@@ -69,7 +71,6 @@ class ItemRepository
 		updated_item.updated_at = Time.now
 	end
 
-
 	def delete(id)
 		removed_item = find_by_id(id)
     @all.delete(removed_item)
@@ -80,14 +81,13 @@ class ItemRepository
 	def parse_csv
 		CSV.foreach(@items_path, headers: true, header_converters: :symbol) do |row|
     @all << Item.new({
-			:id => row[:id],
-			:name => row[:name],
+			:id          => row[:id],
+			:name        => row[:name],
 			:description => row[:description],
-			:unit_price => row[:unit_price],
-			:created_at => row[:created_at],
-			:updated_at => row[:updated_at],
+			:unit_price  => row[:unit_price],
+			:created_at  => row[:created_at],
+			:updated_at  => row[:updated_at],
 			:merchant_id => row[:merchant_id]})
 		end
 	end
-
 end

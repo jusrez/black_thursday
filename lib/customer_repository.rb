@@ -1,9 +1,10 @@
 require './deletable'
 require 'CSV'
 require_relative './customer'
-class CustomerRepository
 
+class CustomerRepository
 	include Deletable
+
 	attr_reader :all,
               :file_path
 
@@ -35,9 +36,9 @@ class CustomerRepository
     new_id = @all.last.id.to_i + 1
     new_attribute = attribute
     @all << Customer.new({
-			:id => new_id.to_s,
+			:id         => new_id.to_s,
 			:first_name => new_attribute[:first_name],
-			:last_name => new_attribute[:last_name],
+			:last_name  => new_attribute[:last_name],
 			:created_at => Time.now,
 			:updated_at => Time.now
 			})
@@ -63,9 +64,9 @@ class CustomerRepository
 	def parse_csv
 		CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
 		@all << Customer.new({
-			:id => row[:id],
+			:id         => row[:id],
 			:first_name => row[:first_name],
-			:last_name => row[:last_name],
+			:last_name  => row[:last_name],
 			:created_at => row[:created_at],
 			:updated_at => row[:updated_at]
 			})

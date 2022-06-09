@@ -3,10 +3,12 @@ require_relative './transaction'
 require 'CSV'
 class TransactionRepository
 	include Deletable
+
 	attr_reader :all
+
   def initialize(transaction_path)
     @transaction_path = transaction_path
-    @all = []
+    @all              = []
 		parse_csv
   end
 
