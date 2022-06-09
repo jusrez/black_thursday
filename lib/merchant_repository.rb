@@ -1,11 +1,14 @@
+require './deletable'
 require 'CSV'
 require './lib/merchant.rb'
 class MerchantRepository
+	include Deletable
   attr_reader :all
 
   def initialize(file_path)
     @file_path = file_path
     @all = []
+
     parse_csv
   end
 
@@ -39,10 +42,6 @@ class MerchantRepository
     renamed_merchant.name = attributes
   end
 
-  def delete(id)
-    removed_merchant = find_by_id(id)
-    @all.delete(removed_merchant)
-  end
 
   private
 

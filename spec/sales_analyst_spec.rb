@@ -126,9 +126,38 @@ RSpec.describe SalesAnalyst do
 	end
 
 	it 'can find the top_revenue_earners' do
-		expect(sales_analyst.merchant_revenue(12334160)).to be_a(Integer)
+
+		expect(sales_analyst.revenue_by_merchant(12334160)).to be_a(Float)
 		expect(sales_analyst.top_revenue_earners.count).to eq(20)
 		expect(sales_analyst.top_revenue_earners(5).count).to eq(5)
 	end
+
+	it 'can find merchants with pending invoices' do
+
+		expect(sales_analyst.merchants_with_pending_invoices).to be_a(Array)
+		expect(sales_analyst.merchants_with_pending_invoices.count).to eq(768)
+	end
+
+	it 'can find merchants with only one item' do
+
+		expect(sales_analyst.merchants_with_only_one_item).to be_a(Array)
+		expect(sales_analyst.merchants_with_only_one_item.count).to eq(243)
+	end
+
+	it 'can find merchants that only sell one item by the month they registered' do
+
+		expect(sales_analyst.merchants_with_only_one_item_registered_in_month("February").count).to eq(19)
+	end
+
+	it 'can return the revenue by merchant' do
+		expect(sales_analyst.revenue_by_merchant(12334160)).to be_a(Float)
+		expect(sales_analyst.revenue_by_merchant(12334160)).to eq(13598206.0)
+	end
+
+	it 'can return the most sold item for a given merchant' do
+
+		expect(sales_analyst.most_sold_item_for_merchant(12334160)[0]).to be_a(InvoiceItem)
+	end
+
 
 end

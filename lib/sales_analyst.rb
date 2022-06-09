@@ -235,30 +235,68 @@ class SalesAnalyst
 	end
 
 	def top_revenue_earners(number_of_earners = 20)
-		invoices_by_merchant.each do |merchant, invoices_amount|
-		end
-
+ feat/iteration4
+		top_to_bottom_merchants = merchant_revenues.sort_by{|merchant, revenue| revenue}.reverse
+		top_to_bottom_merchants.first(number_of_earners)
 	end
 
-	def merchant_revenue(merchant_id)
 
+	def revenue_by_merchant(merchant_id)
+		merchant_invoice_ids = @invoices.find_all_by_merchant_id(merchant_id.to_i).map{|invoice| invoice.id.to_i}
+    invoice_items_by_merchant = merchant_invoice_ids.map {|invoice_id| @invoice_items.find_all_by_invoice_id(invoice_id)}.flatten!
+    invoice_items_by_merchant.sum {|item| item.unit_price_to_dollars * item.quantity.to_f}
+	end
+
+
+	def merchant_revenues
+		all_revenues = Hash.new
+		merchants.all.each do |merchant|
+			all_revenues[merchant.id] = revenue_by_merchant(merchant.id)
+		end
+		return all_revenues
+	end
+
+	def merchants_with_pending_invoices
+		merchants_with_pending_invoices = []
+		pending_invoices = @transactions.find_all_by_result("failed").uniq
+		pending_ids = pending_invoices.map {|invoice| invoice.invoice_id}
+		invoices.all.each do |invoice|
+			merchants_with_pending_invoices << invoice.merchant_id if pending_ids.include?(invoice.id)
+		end
+		return merchants_with_pending_invoices
+	end
+
+	def merchants_with_only_one_item
+		merchants_with_only_one_item = []
+		items_by_merchant.select do |merchant, items|
+			merchants_with_only_one_item << merchant if items == 1
+		end
+		return merchants_with_only_one_item
+
+	def merchant_revenue(merchant_id)
 		total_revenue = 0
 		invoices.all.each do |invoice|
-<<<<<<< HEAD
-
-=======
-			# require "pry"; binding.pry
->>>>>>> 33eeac54dbcabafd63f615f4697f7c5665ea635d
 			if merchant_id == invoice.merchant_id #&& invoice_paid_in_full?(invoice)
 				 total_revenue += ((invoice.unit_price.to_f) * invoice.quantity.to_f)
 			end
 		end
-<<<<<<< HEAD
-
-=======
-		# require "pry"; binding.pry
->>>>>>> 33eeac54dbcabafd63f615f4697f7c5665ea635d
 		return total_revenue
 	end
+
+	def merchants_with_only_one_item_registered_in_month(month_name)
+    merchants_created_in_month = merchants.all.find_all{|merchant| (Date.parse(merchant.created_at)).strftime("%B") == month_name}
+    merchants_created_in_month.find_all{|merchant| @items.find_all_by_merchant_id(merchant.id).count == 1}
+  end
+
+	def most_sold_item_for_merchant(merch_id)
+    most_sold_items = []
+    merchant_items = @items.find_all_by_merchant_id(merch_id)
+    items_invoice = merchant_items.flat_map do |item|
+      @invoice_items.find_all_by_item_id(item.id)
+    end
+    most_sold_items << items_invoice.max {|item| item.quantity.to_i}
+  end
+
+
 
 end

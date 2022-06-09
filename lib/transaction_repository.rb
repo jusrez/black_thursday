@@ -1,6 +1,8 @@
+require './deletable'
 require_relative './transaction'
 require 'CSV'
 class TransactionRepository
+	include Deletable
 	attr_reader :all
   def initialize(transaction_path)
     @transaction_path = transaction_path
@@ -53,6 +55,7 @@ class TransactionRepository
 		updated_transaction.result = attributes[:result]
 		updated_transaction.updated_at = Time.now.round
 	end
+
 
 	def delete(id)
 		removed_transaction = find_by_id(id)

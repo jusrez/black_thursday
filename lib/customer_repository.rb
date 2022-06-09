@@ -1,8 +1,11 @@
+require './deletable'
 require 'CSV'
 require_relative './customer'
 class CustomerRepository
+
+	include Deletable
 	attr_reader :all,
- 							:file_path
+              :file_path
 
 	def initialize(file_path)
 		@file_path = file_path
@@ -48,6 +51,7 @@ class CustomerRepository
     updated_item.updated_at = Time.now
 		return updated_item
   end
+
 
 	def delete(id)
 		removed_item = find_by_id(id)
