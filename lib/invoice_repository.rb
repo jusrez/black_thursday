@@ -9,16 +9,7 @@ class InvoiceRepository
   def initialize(invoice_path)
     @invoice_path = invoice_path
     @all = []
-
-    CSV.foreach(@invoice_path, headers: true, header_converters: :symbol) do |row|
-    @all << Invoice.new({
-      :id => row[:id],
-      :customer_id => row[:customer_id],
-      :status => row[:status],
-      :created_at => row[:created_at],
-      :updated_at => row[:updated_at],
-      :merchant_id => row[:merchant_id]})
-    end
+    parse_csv
   end
 
   def find_by_id(id)
@@ -59,5 +50,26 @@ class InvoiceRepository
     updated_item.updated_at = Time.now
   end
 
+
+
+
+  def delete(id)
+    removed_item = find_by_id(id)
+    @all.delete(removed_item)
+  end
+
+  private
+
+  def parse_csv
+    CSV.foreach(@invoice_path, headers: true, header_converters: :symbol) do |row|
+    @all << Invoice.new({
+      :id => row[:id],
+      :customer_id => row[:customer_id],
+      :status => row[:status],
+      :created_at => row[:created_at],
+      :updated_at => row[:updated_at],
+      :merchant_id => row[:merchant_id]})
+    end
+  end
 
 end

@@ -8,5 +8,4 @@ class Merchant
     @name = data[:name]
 		@created_at = data[:created_at]
   end
-
 end

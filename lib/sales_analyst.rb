@@ -235,15 +235,18 @@ class SalesAnalyst
 	end
 
 	def top_revenue_earners(number_of_earners = 20)
+ feat/iteration4
 		top_to_bottom_merchants = merchant_revenues.sort_by{|merchant, revenue| revenue}.reverse
 		top_to_bottom_merchants.first(number_of_earners)
 	end
+
 
 	def revenue_by_merchant(merchant_id)
 		merchant_invoice_ids = @invoices.find_all_by_merchant_id(merchant_id.to_i).map{|invoice| invoice.id.to_i}
     invoice_items_by_merchant = merchant_invoice_ids.map {|invoice_id| @invoice_items.find_all_by_invoice_id(invoice_id)}.flatten!
     invoice_items_by_merchant.sum {|item| item.unit_price_to_dollars * item.quantity.to_f}
 	end
+
 
 	def merchant_revenues
 		all_revenues = Hash.new
@@ -269,6 +272,15 @@ class SalesAnalyst
 			merchants_with_only_one_item << merchant if items == 1
 		end
 		return merchants_with_only_one_item
+
+	def merchant_revenue(merchant_id)
+		total_revenue = 0
+		invoices.all.each do |invoice|
+			if merchant_id == invoice.merchant_id #&& invoice_paid_in_full?(invoice)
+				 total_revenue += ((invoice.unit_price.to_f) * invoice.quantity.to_f)
+			end
+		end
+		return total_revenue
 	end
 
 	def merchants_with_only_one_item_registered_in_month(month_name)

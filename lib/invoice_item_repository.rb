@@ -4,25 +4,15 @@ require 'BigDecimal'
 require_relative './invoice_item.rb'
 
 class InvoiceItemRepository
+
 	include Deletable
-  attr_reader :all
+  attr_reader :all,
+              :invoice_item_path
+
   def initialize(invoice_item_path)
     @invoice_item_path = invoice_item_path
     @all = []
-
-    CSV.foreach(@invoice_item_path, headers: true, header_converters: :symbol) do |row|
-    @all << InvoiceItem.new({
-      :id => row[:id],
-      :item_id => row[:item_id],
-      :invoice_id => row[:invoice_id],
-      :quantity => row[:quantity],
-      :unit_price => row[:unit_price],
-      :created_at => row[:created_at],
-      :updated_at => row[:updated_at],
-      :unit_price => row[:unit_price]
-      })
-		end
-
+    parse_csv
   end
 
   def find_by_id(id)
@@ -60,5 +50,20 @@ class InvoiceItemRepository
 	end
 
 
+  private
 
+  def parse_csv
+    CSV.foreach(@invoice_item_path, headers: true, header_converters: :symbol) do |row|
+    @all << InvoiceItem.new({
+      :id => row[:id],
+      :item_id => row[:item_id],
+      :invoice_id => row[:invoice_id],
+      :quantity => row[:quantity],
+      :unit_price => row[:unit_price],
+      :created_at => row[:created_at],
+      :updated_at => row[:updated_at],
+      :unit_price => row[:unit_price]
+      })
+    end
+  end
 end

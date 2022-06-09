@@ -9,17 +9,7 @@ class ItemRepository
 	def initialize(items_path)
 		@items_path = items_path
 		@all = []
-
-		CSV.foreach(@items_path, headers: true, header_converters: :symbol) do |row|
-    @all << Item.new({
-			:id => row[:id],
-			:name => row[:name],
-			:description => row[:description],
-			:unit_price => row[:unit_price],
-			:created_at => row[:created_at],
-			:updated_at => row[:updated_at],
-			:merchant_id => row[:merchant_id]})
-		end
+		parse_csv
 	end
 
 	def find_by_id(id)
@@ -61,8 +51,13 @@ class ItemRepository
 	def create(attributes)
 		new_id = @all.last.id.to_i + 1
 		new_attribute = attributes
-		@all << Item.new(:id => new_id.to_s, :name => new_attribute[:name], :unit_price =>
-		new_attribute[:unit_price], :description => new_attribute[:description], :created_at => Time.now)
+		@all << Item.new(
+			:id => new_id.to_s,
+			:name => new_attribute[:name],
+			:unit_price => new_attribute[:unit_price],
+			:description => new_attribute[:description],
+			:created_at => Time.now
+			)
 		return @all.last
 	end
 
@@ -72,6 +67,27 @@ class ItemRepository
 		updated_item.unit_price = attributes[:unit_price]
 		updated_item.description = attributes[:description]
 		updated_item.updated_at = Time.now
+	end
+
+
+	def delete(id)
+		removed_item = find_by_id(id)
+    @all.delete(removed_item)
+	end
+
+	private
+
+	def parse_csv
+		CSV.foreach(@items_path, headers: true, header_converters: :symbol) do |row|
+    @all << Item.new({
+			:id => row[:id],
+			:name => row[:name],
+			:description => row[:description],
+			:unit_price => row[:unit_price],
+			:created_at => row[:created_at],
+			:updated_at => row[:updated_at],
+			:merchant_id => row[:merchant_id]})
+		end
 	end
 
 end

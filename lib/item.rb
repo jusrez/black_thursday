@@ -1,6 +1,4 @@
-
 require 'CSV'
-
 class Item
 	attr_reader :id,
 							:created_at,
@@ -24,5 +22,4 @@ class Item
 	def unit_price_to_dollars
 		@unit_price.to_f
 	end
-
 end

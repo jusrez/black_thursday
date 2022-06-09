@@ -86,8 +86,6 @@ RSpec.describe TransactionRepository do
 		expect(transaction_repository.find_by_id(1).credit_card_expiration_date).to eq("0822")
 		expect(transaction_repository.find_by_id(1).result).to eq("success")
 		expect(transaction_repository.find_by_id(1).updated_at).to eq(Time.now.round)
-
-
 	end
 
 	it 'can delete a transaction' do

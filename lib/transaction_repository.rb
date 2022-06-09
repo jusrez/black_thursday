@@ -7,16 +7,7 @@ class TransactionRepository
   def initialize(transaction_path)
     @transaction_path = transaction_path
     @all = []
-
-    CSV.foreach(@transaction_path, headers: true, header_converters: :symbol) do |row|
-    @all << Transaction.new({:id => row[:id],
-      :invoice_id => row[:invoice_id],
-      :credit_card_number => row[:credit_card_number],
-			:credit_card_expiration_date => row[:credit_card_expiration_date],
-      :result => row[:result],
-      :created_at => row[:created_at],
-      :updated_at => row[:updated_at]})
-    end
+		parse_csv
   end
 
   def find_by_id(id)
@@ -66,4 +57,22 @@ class TransactionRepository
 	end
 
 
+	def delete(id)
+		removed_transaction = find_by_id(id)
+		@all.delete(removed_transaction)
+	end
+
+	private
+
+	def parse_csv
+		CSV.foreach(@transaction_path, headers: true, header_converters: :symbol) do |row|
+    @all << Transaction.new({:id => row[:id],
+      :invoice_id => row[:invoice_id],
+      :credit_card_number => row[:credit_card_number],
+			:credit_card_expiration_date => row[:credit_card_expiration_date],
+      :result => row[:result],
+      :created_at => row[:created_at],
+      :updated_at => row[:updated_at]})
+    end
+	end
 end

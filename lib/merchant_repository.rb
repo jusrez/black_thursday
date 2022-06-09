@@ -1,18 +1,15 @@
 require './deletable'
 require 'CSV'
-require_relative './merchant.rb'
+require './lib/merchant.rb'
 class MerchantRepository
 	include Deletable
   attr_reader :all
+
   def initialize(file_path)
     @file_path = file_path
     @all = []
 
-    CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
-    @all << Merchant.new({:id => row[:id], :name => row[:name], :created_at => row[:created_at]})
-
-    end
-
+    parse_csv
   end
 
   def find_by_id(id)
@@ -46,4 +43,11 @@ class MerchantRepository
   end
 
 
+  private
+
+  def parse_csv
+    CSV.foreach(@file_path, headers: true, header_converters: :symbol) do |row|
+    @all << Merchant.new({:id => row[:id], :name => row[:name]})
+    end
+  end
 end
